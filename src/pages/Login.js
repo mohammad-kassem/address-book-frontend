@@ -18,12 +18,11 @@ function Login(){
       data: JSON.stringify(cridentials),
     })
     .then(function(response){
-        console.log(response);
         localStorage.setItem("token", response.data.auth_token);
         navigate("/contacts");
     })
     .catch(function(error){
-        console.log(error.message);
+        alert(error.response.data.message);
     });
   };
 
