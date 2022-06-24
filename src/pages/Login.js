@@ -1,7 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Form from "../components/Form";
 
-function Login({login}){
+
+
+function Login(){
+    const navigate = useNavigate();
+  function login(cridentials) {
+    console.log(cridentials);
+    axios({
+      method: "post",
+      url: "http://localhost:3000/api/user/login",
+      headers: {
+        "Content-type": "application/json",
+      },
+      data: JSON.stringify(cridentials),
+    })
+    .then(function(response){
+        console.log(response);
+        localStorage.setItem("token", response.data.auth_token);
+        navigate("/contacts");
+    })
+    .catch(function(error){
+        console.log(error.message);
+    });
+  };
+
     
     return (
         <>
