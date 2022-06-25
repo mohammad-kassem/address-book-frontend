@@ -51,7 +51,7 @@ function ContactForm({type, id, add, update}){
     return (
         <form className="contact-form" onSubmit={onSubmit}>
             <div className="contact-header">
-            <h1>Contact details</h1>
+                <h1>Contact details</h1>
             </div>
             <div className="form-content">
                 <div className="input-container">

@@ -4,9 +4,9 @@ const Radio = ({ relationship, setRelationship }) => {
   const options = ["single", "married", "divorced", "widowed"];
   return (
     <><label>Relationship Status</label>
-      {options.map((option) => (
+      {options.map((option, index) => (
         <>
-          <input type="radio" value={option} name="relationship" checked = {relationship === option} onChange={(e)=>setRelationship(e.target.value)}></input><label>{option}</label>
+          <input key={index} type="radio" value={option} name="relationship" checked = {relationship === option} onChange={(e)=>setRelationship(e.target.value)}></input><label>{option}</label>
           </>
         
       ))}

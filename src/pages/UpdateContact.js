@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +13,7 @@ function UpdateContact(){
     useEffect(function(){
         if(!token) navigate("/");
       }, []);
-       
+
   function update(cridentials) {
     axios({
       method: "put",
