@@ -5,6 +5,7 @@ import { useState } from "react";
 function FilterBar({ contacts, setContacts }){
     const [filters, setFilters] = useState([["","",""], ["","",""], ["","",""], ["","",""]]);
     const classes =["name", "email", "phone", "relationship"];
+    console.log(filters);
 
     function handleChange(e, i, j){
         const temp = filters.map((filter, index)=>{
@@ -27,10 +28,9 @@ function FilterBar({ contacts, setContacts }){
 
     return(
         <>
-        <div className="row-container">
+        <div className="row-container bg">
         {filters.map((filter, i)=>{return(
-            <div key={i} className="filter-container">
-            <div className={classes[i]}>
+            <div key={i} className={`filter-container ${classes[i]}`}>
             <label>Starts with</label>
             <input type="text" value={filter[0]} onChange={(e)=>{handleChange(e, i, 0)}}></input>
             <label>includes</label>
@@ -38,10 +38,9 @@ function FilterBar({ contacts, setContacts }){
             <label>Ends with</label>
             <input type="text" value={filter[2]} onChange={(e)=>{handleChange(e, i, 2)}}></input>
             </div>
-            </div>
         )})}
-        <div></div>
-        <div></div>
+        <div className="location"></div>
+        <div className="btn-div"></div>
         </div>
         </>
     )

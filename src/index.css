@@ -15,6 +15,11 @@ body {
   margin: 0 10%;
 }
 
+.bg {
+  background-color: #f5f5f5;
+}
+
+
 a{
   text-decoration: none;
   color: blueviolet;
@@ -103,6 +108,12 @@ img{
 }
 
 /* display contacts */
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 1%;
+}
+
 .row-container{
     display: flex;
     justify-content: flex-start;
@@ -112,7 +123,7 @@ img{
     border-bottom: #f5f5f5 solid;
 }
 
-.row-container:first-child{
+.row-container:nth-child(2){
     background-color: #f5f5f5;
 }
 .name{
@@ -226,5 +237,31 @@ input[type="radio"]{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
     /* margin-left: 2px; */
 }
+
+/* filer bar */
+.filters-container{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    text-align: center;
+}
+
+.filter-container label{
+    display:block;
+    text-align: center;
+}
+
+.filter-container input{
+    width: 10vw;
+    height: 30px;
+    border: 2px solid #c5c5c5;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+    padding: 0 5%;
+    margin: 10px 0;
+}
+
+
 
 
