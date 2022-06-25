@@ -4,9 +4,11 @@ import axios from "axios";
 import { FaTrash } from 'react-icons/fa';
 import { BsGearFill } from "react-icons/bs";
 
+import FilterBar from "../components/FilterBar";
 
 function Contacts(){
     const [contacts, setContacts] = useState([]);
+    const [original, setOriginal] = useState([]);
     const navigate = useNavigate();
     
     useEffect(function(){
@@ -24,8 +26,8 @@ function Contacts(){
             }
           })
           .then(function(response){
-            console.log(response.data.contacts);
             setContacts(response.data.contacts);
+            setOriginal(response.data.contacts);
           })
           .catch(function(error){
             alert(error.response.data.message);
@@ -60,8 +62,9 @@ function Contacts(){
                <div className="location">Location</div>
                <div className="btn-div"><button className="btn btn-header green" onClick={()=>navigate("add")}>Add</button></div>
             </div>
+            <FilterBar contacts={original} setContacts={setContacts}/>
             {contacts.map((contact, index)=>{return(
-                 <div className="row-container" id={contact._id}>
+                 <div key={index} className="row-container" id={contact._id}>
                 <div className="name">{contact.name}</div>
                 <div className="email">{contact.email}</div>
                 <div className="phone">{contact.phone}</div>
