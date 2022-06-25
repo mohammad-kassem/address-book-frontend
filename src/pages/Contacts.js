@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaTrash } from 'react-icons/fa';
 import { BsGearFill } from "react-icons/bs";
+import Button from "../components/Button";
 
 import FilterBar from "../components/FilterBar";
 
 function Contacts(){
     const [contacts, setContacts] = useState([]);
     const [original, setOriginal] = useState([]);
+    const [showFilter, setShowFilter] = useState(false);
     const navigate = useNavigate();
     
     useEffect(function(){
@@ -53,16 +55,20 @@ function Contacts(){
     }
 
     return(
-        <>
+        <>  
+            <div className="header">
+            <h1>Contacts List</h1>
+            <button className="btn green" onClick={()=>navigate("add")}>Add</button>
+            </div>
             <div className="row-container">
                <div className="name">Full name</div>
                <div className="email">Email</div>
                <div className="phone">Phone number</div>
                <div className="relationship">Relationship</div>
                <div className="location">Location</div>
-               <div className="btn-div"><button className="btn btn-header green" onClick={()=>navigate("add")}>Add</button></div>
+               <div className="btn-div"><Button showFilter={showFilter} setShowFilter={setShowFilter} contacts={original} setContacts={setContacts}/></div>
             </div>
-            <FilterBar contacts={original} setContacts={setContacts}/>
+            {showFilter && <FilterBar contacts={original} setContacts={setContacts}/>}
             {contacts.map((contact, index)=>{return(
                  <div key={index} className="row-container" id={contact._id}>
                 <div className="name">{contact.name}</div>
