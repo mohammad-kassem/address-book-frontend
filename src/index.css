@@ -149,10 +149,12 @@ img{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
     width: 2.5%;
     text-align: center;
+    cursor: pointer;
 }
 
 .settings{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
     width: 2.5%;
     text-align: center;
+    cursor: pointer;
 }

@@ -7,7 +7,8 @@ import { BsGearFill } from "react-icons/bs";
 
 function Contacts(){
     const [contacts, setContacts] = useState([]);
-
+    const navigate = useNavigate();
+    
     useEffect(function(){
         getContacts();
       }, []);
@@ -49,8 +50,8 @@ function Contacts(){
                 <div className="phone">{contact.phone}</div>
                 <div className="relationship">{contact.relationship}</div>
                 <div className="location">{contact.location}</div>
-                <div className="delete"><FaTrash/></div>
-                <div className="settings"><BsGearFill/></div>
+                <div className="delete" ><FaTrash/></div>
+                <div className="settings" onClick={() => {navigate(`${contact._id}`);}}><BsGearFill/></div>
                 </div>
             )})}
          </>
