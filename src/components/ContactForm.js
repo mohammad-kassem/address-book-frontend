@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Radio from "./Radio";
 
 
 function ContactForm({type, id, add, update}){
@@ -69,10 +70,8 @@ function ContactForm({type, id, add, update}){
                 setPhone(e.target.value);}}></input>
                 </div>
                 <div className="input-container">
-                <label>relationshup status</label>
-                <input type="text" id="relationship" value={relationship} required onChange={function(e){
-                 setRelationship(e.target.value);}}></input>
-                 </div>
+                <Radio setRelationship={setRelationship}/>
+                </div>
                 {/* {<label>Location</label> */
                 /* <input type="text" id="location" value={location} required onChange={function(e){
                 setRelationship(e.target.value);}}></input> */}

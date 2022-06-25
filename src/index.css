@@ -197,6 +197,11 @@ img{
     margin: 10px 0;
 }
 
+input[type="radio"]{
+    height: 20px;
+    margin: 20px 0;
+}
+
 .contact-form .form-content{
     margin: 5%;
     margin-top: 1%;
