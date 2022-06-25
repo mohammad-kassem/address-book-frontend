@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ContactForm from "../components/ContactForm";
@@ -7,7 +7,12 @@ import ContactForm from "../components/ContactForm";
 
 function AddContact(){
     const navigate = useNavigate();
-    let token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    
+    useEffect(function(){
+        if(!token) navigate("/");
+      }, []); 
+
   function add(cridentials) {
     axios({
       method: "post",

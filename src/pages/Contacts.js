@@ -13,12 +13,13 @@ function Contacts(){
     const [showFilter, setShowFilter] = useState(false);
     const navigate = useNavigate();
     
+    const token = localStorage.getItem("token");
+
     useEffect(function(){
         getContacts();
       }, []);
 
     function getContacts(){
-        let token = localStorage.getItem("token");
         axios({
             method: "get",
             url: "http://localhost:3000/api/contacts",
@@ -33,6 +34,7 @@ function Contacts(){
           })
           .catch(function(error){
             alert(error.response.data.message);
+            navigate ("/");
           })
     }
 
