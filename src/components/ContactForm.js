@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Radio from "./Radio";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+
 
 
 function ContactForm({type, id, add, update}){
@@ -11,7 +13,31 @@ function ContactForm({type, id, add, update}){
     const [relationship, setRelationship] = useState("");
     const [location, setLocation] = useState("");
 
+
     const navigate = useNavigate();
+
+    function AddMarkerToClick() {
+    const [markers, setMarkers] = useState([{lat: 33.89351126947809, lng: 35.49526530619446}]);
+
+    const map = useMapEvents({
+        click(e) {
+        console.log("hello");
+        const newMarker = e.latlng;
+        console.log(newMarker);
+        setMarkers([newMarker]);
+        },
+    })
+    
+    return (
+        <>
+        {markers.length !== 0 && markers.map(marker => 
+            <Marker position={marker}>
+            <Popup>Marker is at {marker}</Popup>
+            </Marker>
+        )}
+        </>
+        )
+    }
 
     useEffect(function(){
         getContact();
@@ -72,13 +98,12 @@ function ContactForm({type, id, add, update}){
                 <div className="input-container">
                 <Radio relationship={relationship} setRelationship={setRelationship}/>
                 </div>
-                {/* {<label>Location</label> */
-                /* <input type="text" id="location" value={location} required onChange={function(e){
-                setRelationship(e.target.value);}}></input> */}
-                <div className="btn-container">
-                <button type="button" className="btn red" onClick={()=>navigate("/contacts")}>Cancel</button>
-                <button type="submit" className="btn green">Save changes</button>
-                </div>
+                <label>Location</label> 
+                <MapContainer center={[33.888630, 35.495480]} zoom={13} scrollWheelZoom={true}>
+                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                <AddMarkerToClick />
+                </MapContainer>
             </div>
         </form>
     )
