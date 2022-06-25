@@ -70,7 +70,7 @@ function ContactForm({type, id, add, update}){
                 setPhone(e.target.value);}}></input>
                 </div>
                 <div className="input-container">
-                <Radio setRelationship={setRelationship}/>
+                <Radio relationship={relationship} setRelationship={setRelationship}/>
                 </div>
                 {/* {<label>Location</label> */
                 /* <input type="text" id="location" value={location} required onChange={function(e){
