@@ -158,3 +158,49 @@ img{
     text-align: center;
     cursor: pointer;
 }
+
+/* Contact update and add */
+.input-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-form{
+    width: 60%;
+    margin: 25vh auto;
+    background-color: #fff;
+    border: 2px solid #c5c5c5;
+    border-radius: 10px;
+}
+
+.contact-header{
+    background-color: blueviolet;
+    padding: 5%;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.contact-form input {
+    width: 50%;
+    height: 50px;
+    border: 2px solid #c5c5c5;
+    border-radius: 10px;
+    font-size: 17px;
+    box-sizing: border-box;
+    padding: 0 2%;
+    margin: 10px 0;
+}
+
+.contact-form .form-content{
+    margin: 5%;
+    margin-top: 1%;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 5%;
+}
+
+

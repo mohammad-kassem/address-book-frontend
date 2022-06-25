@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -12,6 +12,7 @@ function ContactForm({type, add, update}){
     const [location, setLocation] = useState("");
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(function(){
         getContact();
@@ -49,20 +50,38 @@ function ContactForm({type, add, update}){
     };
 
     return (
-        <form className="form" onSubmit={onSubmit}>
+        <form className="contact-form" onSubmit={onSubmit}>
+            <div className="contact-header">
+            <h1>Contact details</h1>
+            </div>
             <div className="form-content">
-                <h1>Contact details</h1>
-                <input type="text" id="full-name" value={name} placeholder="Full name" onChange={function(e){
-                setName(e.target.value);}}></input> 
-                <input type="email" id="email" value={email} placeholder="Email address" required onChange={function(e){
+                <div className="input-container">
+                <label>Full name</label>
+                <input type="text" id="full-name" value={name} onChange={function(e){
+                setName(e.target.value);}}></input>
+                </div>
+                <div className="input-container">
+                <label>Email address</label>
+                <input type="email" id="email" value={email} required onChange={function(e){
                 setEmail(e.target.value);}}></input>
-                <input type="text" id="phone" value={phone} placeholder="Phone number" required onChange={function(e){
+                </div>
+                <div className="input-container">
+                <label>Phone number</label>
+                <input type="text" id="phone" value={phone} required onChange={function(e){
                 setPhone(e.target.value);}}></input>
-                <input type="text" id="relationship" value={relationship} placeholder="Relationship status" required onChange={function(e){
+                </div>
+                <div className="input-container">
+                <label>relationshup status</label>
+                <input type="text" id="relationship" value={relationship} required onChange={function(e){
                  setRelationship(e.target.value);}}></input>
-                {/* <input type="text" id="location" value={phone} placeholder="Relationship status" required onChange={function(e){
+                 </div>
+                {/* {<label>Location</label> */
+                /* <input type="text" id="location" value={location} required onChange={function(e){
                 setRelationship(e.target.value);}}></input> */}
-                <button type="submit" className="btn btn-large">Save changes</button>
+                <div className="button-container">
+                <button type="button" className="btn red" onClick={()=>navigate("/contacts")}>Cancel</button>
+                <button type="submit" className="btn green">Save changes</button>
+                </div>
             </div>
         </form>
     )
