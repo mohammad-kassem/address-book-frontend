@@ -8,7 +8,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f5f5f5
+  background-color: #fff
 }
 
 .page-content {
@@ -100,4 +100,59 @@ img{
 
 .link{
   text-align: center;
+}
+
+/* display contacts */
+.row-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: #f5f5f5 solid;
+}
+
+.row-container:first-child{
+    background-color: #f5f5f5;
+}
+.name{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 15%;
+    text-align: center;
+}
+
+.email{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 25%;
+    text-align: center;
+}
+
+.phone{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 25%;
+    text-align: center;
+}
+
+.relationship{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 25%;
+    text-align: center;
+}
+
+.location{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 10%;
+    text-align: center;
+}
+
+.delete{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 2.5%;
+    text-align: center;
+}
+
+.settings{
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    width: 2.5%;
+    text-align: center;
 }
