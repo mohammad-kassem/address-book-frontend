@@ -1,18 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import ContactForm from "../components/ContactForm";
 
-function UpdateContact(){
-    const { id } = useParams();
+
+
+function AddContact(){
     const navigate = useNavigate();
     let token = localStorage.getItem("token");
-  function update(cridentials) {
-    console.log(cridentials);
+  function add(cridentials) {
     axios({
-      method: "put",
-      url: `http://localhost:3000/api/contacts/update/?id=${id}`,
+      method: "post",
+      url: "http://localhost:3000/api/contacts/add",
       headers: {
         "Content-type": "application/json",
         "Authorization" : token
@@ -30,9 +29,9 @@ function UpdateContact(){
     
     return (
         <>
-        <ContactForm type = "update" id={id} update={update}/>
+        <ContactForm type = "add" add={add}/>
         </>
     )
 }
 
-export default UpdateContact;
+export default AddContact;

@@ -58,7 +58,7 @@ function Contacts(){
                <div className="phone">Phone number</div>
                <div className="relationship">Relationship</div>
                <div className="location">Location</div>
-               <div className="btn-div"><button className="btn btn-header green">Add</button></div>
+               <div className="btn-div"><button className="btn btn-header green" onClick={()=>navigate("add")}>Add</button></div>
             </div>
             {contacts.map((contact, index)=>{return(
                  <div className="row-container" id={contact._id}>

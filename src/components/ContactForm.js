@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 
-function ContactForm({type, add, update}){
+function ContactForm({type, id, add, update}){
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [relationship, setRelationship] = useState("");
     const [location, setLocation] = useState("");
 
-    const { id } = useParams();
     const navigate = useNavigate();
 
     useEffect(function(){

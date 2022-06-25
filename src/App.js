@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Contacts from "./pages/Contacts";
 import UpdateContact from "./pages/UpdateContact";
+import AddContact from "./pages/AddContact";
+
 
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/contacts" element={<Contacts />}></Route>
         <Route path="/contacts/:id" element={<UpdateContact />}></Route>
-
+        <Route path="/contacts/add" element={<AddContact />}></Route>
       </Routes>
     </BrowserRouter>
   )
