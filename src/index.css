@@ -107,6 +107,24 @@ img{
   text-align: center;
 }
 
+
+/* nav bar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 20px 10%;
+    background-color: black;
+}
+  
+  nav h1{
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+}
+
+
 /* display contacts */
 .header{
     display: flex;
