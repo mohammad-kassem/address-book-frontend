@@ -78,7 +78,7 @@ function ContactForm({type, add, update}){
                 {/* {<label>Location</label> */
                 /* <input type="text" id="location" value={location} required onChange={function(e){
                 setRelationship(e.target.value);}}></input> */}
-                <div className="button-container">
+                <div className="btn-container">
                 <button type="button" className="btn red" onClick={()=>navigate("/contacts")}>Cancel</button>
                 <button type="submit" className="btn green">Save changes</button>
                 </div>

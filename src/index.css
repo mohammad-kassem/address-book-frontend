@@ -135,7 +135,7 @@ img{
 
 .relationship{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
-    width: 25%;
+    width: 20%;
     text-align: center;
 }
 
@@ -145,16 +145,21 @@ img{
     text-align: center;
 }
 
+.icons-container{
+    display: flex;
+    width: 10%;
+    gap: 10%;
+    justify-content: center;
+}
+
 .delete{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
-    width: 2.5%;
     text-align: center;
     cursor: pointer;
 }
 
 .settings{
     font-size: calc((1.6 - 1) * 1vw + 0.4em);
-    width: 2.5%;
     text-align: center;
     cursor: pointer;
 }
@@ -197,10 +202,22 @@ img{
     margin-top: 1%;
 }
 
-.button-container{
+.btn-container{
     display: flex;
     justify-content: flex-end;
     gap: 5%;
+}
+
+.btn-div{
+    width: 10%;
+    text-align: center;
+
+}
+
+.btn-header{
+    padding: 10px 2vw;
+    font-size: calc((1.6 - 1) * 1vw + 0.4em);
+    /* margin-left: 2px; */
 }
 
 

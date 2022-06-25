@@ -58,8 +58,7 @@ function Contacts(){
                <div className="phone">Phone number</div>
                <div className="relationship">Relationship</div>
                <div className="location">Location</div>
-               <div className="delete"></div>
-               <div className="settings"></div>
+               <div className="btn-div"><button className="btn btn-header green">Add</button></div>
             </div>
             {contacts.map((contact, index)=>{return(
                  <div className="row-container" id={contact._id}>
@@ -68,8 +67,10 @@ function Contacts(){
                 <div className="phone">{contact.phone}</div>
                 <div className="relationship">{contact.relationship}</div>
                 <div className="location">{contact.location}</div>
+                <div className="icons-container">
                 <div className="delete" onClick={()=>{removeContact(contact._id)}}><FaTrash/></div>
                 <div className="settings" onClick={() => {navigate(`${contact._id}`);}}><BsGearFill/></div>
+                </div>
                 </div>
             )})}
          </>
