@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Radio from "./Radio";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap,  useMapEvents } from 'react-leaflet';
 
 
 
@@ -11,42 +11,19 @@ function ContactForm({type, id, add, update}){
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [relationship, setRelationship] = useState("");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState([33.89351126947809, 35.49526530619446]);
 
 
     const navigate = useNavigate();
-
-    function AddMarkerToClick() {
-    const [markers, setMarkers] = useState([{lat: 33.89351126947809, lng: 35.49526530619446}]);
-
-    const map = useMapEvents({
-        click(e) {
-        console.log("hello");
-        const newMarker = e.latlng;
-        console.log(newMarker);
-        setMarkers([newMarker]);
-        },
-    })
-    
-    return (
-        <>
-        {markers.length !== 0 && markers.map(marker => 
-            <Marker position={marker}>
-            <Popup>Marker is at {marker}</Popup>
-            </Marker>
-        )}
-        </>
-        )
-    }
 
     useEffect(function(){
         getContact();
       }, []);
 
-    function getContact(){
+    async function getContact(){
         if (type === "update"){
             let token = localStorage.getItem("token");
-            axios({
+            await axios({
                 method: "get",
                 url: `http://localhost:3000/api/contacts/?id=${id}`,
                 headers: {
@@ -55,7 +32,7 @@ function ContactForm({type, id, add, update}){
                 }
             })
             .then(function(response){
-                console.log(response.data.contacts);
+                // console.log(response.data.location);
                 setName(response.data.name);
                 setEmail(response.data.email);
                 setPhone(response.data.phone);
@@ -69,11 +46,42 @@ function ContactForm({type, id, add, update}){
         }
     }
 
+    function AddMarkerToClick({ location }) {
+        const [markers, setMarkers] = useState([{lat: location[0], lng: location[1]}]);
+    
+        const map = useMapEvents({
+            click(e) {
+            console.log("hello");
+            const newMarker = e.latlng;
+            // console.log(newMarker);
+            setLocation([newMarker.lat, newMarker.lng]);
+            setMarkers([newMarker]);
+            },
+        })
+        
+        return (
+            <>
+            {markers.length !== 0 && markers.map(marker => 
+                <Marker position={[marker.lat, marker.lng]}>
+                <Popup>Marker is at {marker.lat}</Popup>
+                </Marker>
+            )}
+            </>
+            )
+        }
+    
+        
+        function ChangeView({ center, zoom }) {
+            const map = useMap();
+            map.setView(center, zoom);
+            return null;
+          }
+
     function onSubmit(e){
       e.preventDefault();
       {type === "update" ? update({name, email, phone, relationship, location}) : add({name, email, phone, relationship, location});}
     };
-
+    let center = location;
     return (
         <form className="contact-form" onSubmit={onSubmit}>
             <div className="contact-header">
@@ -98,12 +106,18 @@ function ContactForm({type, id, add, update}){
                 <div className="input-container">
                 <Radio relationship={relationship} setRelationship={setRelationship}/>
                 </div>
-                <label>Location</label> 
-                <MapContainer center={[33.888630, 35.495480]} zoom={13} scrollWheelZoom={true}>
+                <label>Location</label>
+                {console.log(location)};
+                <MapContainer center={location} zoom={13} scrollWheelZoom={true}>
+                <ChangeView center={location} zoom={13} />
                 <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                <AddMarkerToClick />
+                <AddMarkerToClick location = {location}/>
                 </MapContainer>
+                <div className="btn-container">
+                <button type="button" className="btn red" onClick={()=>navigate("/contacts")}>Cancel</button>
+                <button type="submit" className="btn green">Save changes</button>
+                </div>
             </div>
         </form>
     )
