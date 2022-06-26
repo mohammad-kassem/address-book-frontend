@@ -7,13 +7,15 @@ import ContactForm from "../components/ContactForm";
 
 function AddContact(){
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     
     useEffect(function(){
         if(!token) navigate("/");
       }, []); 
 
   function add(cridentials) {
+    token = localStorage.getItem("token");
+    if(!token) navigate("/");
     axios({
       method: "post",
       url: "http://localhost:3000/api/contacts/add",

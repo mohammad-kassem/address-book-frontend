@@ -12,7 +12,7 @@ function Contacts(){
     const [original, setOriginal] = useState([]);
     const [showFilter, setShowFilter] = useState(false);
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
 
     useEffect(function(){
         getContacts();
@@ -38,7 +38,8 @@ function Contacts(){
     }
 
     function removeContact(id){
-        let token = localStorage.getItem("token");
+        token = localStorage.getItem("token");
+        if(!token) navigate("/");
         axios({
             method: "delete",
             url: `http://localhost:3000/api/contacts/remove/?id=${id}`,

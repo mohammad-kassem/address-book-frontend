@@ -8,13 +8,15 @@ import ContactForm from "../components/ContactForm";
 function UpdateContact(){
     const { id } = useParams();
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     
     useEffect(function(){
         if(!token) navigate("/");
       }, []);
 
   function update(cridentials) {
+    token = localStorage.getItem("token");
+    if(!token) navigate("/");
     axios({
       method: "put",
       url: `http://localhost:3000/api/contacts/update/?id=${id}`,
