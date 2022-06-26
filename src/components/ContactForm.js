@@ -12,6 +12,7 @@ function ContactForm({type, id, add, update}){
     const [phone, setPhone] = useState("");
     const [relationship, setRelationship] = useState("");
     const [location, setLocation] = useState([33.89351126947809, 35.49526530619446]);
+    const [country, setCountry] = useState("");
 
 
     const navigate = useNavigate();
@@ -31,13 +32,15 @@ function ContactForm({type, id, add, update}){
                 "Authorization" : token
                 }
             })
-            .then(function(response){
-                // console.log(response.data.location);
+            .then(async function(response){
                 setName(response.data.name);
+
                 setEmail(response.data.email);
                 setPhone(response.data.phone);
                 setRelationship(response.data.relationship);
                 setLocation(response.data.location);
+                const coun = await getAddress(response.data.location);
+                setCountry(coun.data.address.country);
 
             })
             .catch(function(error){
@@ -45,43 +48,54 @@ function ContactForm({type, id, add, update}){
             })
         }
     }
+    
+    function getAddress(location){
+        return axios({
+            method: "get",
+            url: `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location[0]}&lon=${location[1]}&accept-language=en`,
+            headers: {
+              "Content-type": "application/json"
+            }
+          })
+
+    }
+  
 
     function AddMarkerToClick({ location }) {
         const [markers, setMarkers] = useState([{lat: location[0], lng: location[1]}]);
-    
+        let newMarker;
         const map = useMapEvents({
-            click(e) {
-            console.log("hello");
-            const newMarker = e.latlng;
-            // console.log(newMarker);
+            async click(e) {
+            newMarker = e.latlng;
             setLocation([newMarker.lat, newMarker.lng]);
             setMarkers([newMarker]);
+            const address = await getAddress([newMarker.lat, newMarker.lng]);
+            setCountry(address.data.address.country);
             },
         })
         
+
         return (
-            <>
-            {markers.length !== 0 && markers.map(marker => 
-                <Marker position={[marker.lat, marker.lng]}>
-                <Popup>Marker is at {marker.lat}</Popup>
+            <>  
+                <Marker position={[markers[0].lat, markers[0].lng]}>
+                <Popup>You are here</Popup>
                 </Marker>
-            )}
             </>
             )
         }
     
         
-        function ChangeView({ center, zoom }) {
-            const map = useMap();
-            map.setView(center, zoom);
-            return null;
-          }
+    function ChangeView({ center, zoom }) {
+        const map = useMap();
+        map.setView(center, zoom);
+        return null;
+    }
 
     function onSubmit(e){
       e.preventDefault();
-      {type === "update" ? update({name, email, phone, relationship, location}) : add({name, email, phone, relationship, location});}
+      {type === "update" ? update({name, email, phone, relationship, location, country}) : add({name, email, phone, relationship, location, country});}
     };
-    let center = location;
+
     return (
         <form className="contact-form" onSubmit={onSubmit}>
             <div className="contact-header">
@@ -90,7 +104,7 @@ function ContactForm({type, id, add, update}){
             <div className="form-content">
                 <div className="input-container">
                 <label>Full name</label>
-                <input type="text" id="full-name" value={name} onChange={function(e){
+                <input type="text" id="full-name" value={name} required onChange={function(e){
                 setName(e.target.value);}}></input>
                 </div>
                 <div className="input-container">
@@ -107,7 +121,6 @@ function ContactForm({type, id, add, update}){
                 <Radio relationship={relationship} setRelationship={setRelationship}/>
                 </div>
                 <label>Location</label>
-                {console.log(location)};
                 <MapContainer center={location} zoom={13} scrollWheelZoom={true}>
                 <ChangeView center={location} zoom={13} />
                 <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

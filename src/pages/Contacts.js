@@ -11,9 +11,7 @@ function Contacts(){
     const [contacts, setContacts] = useState([]);
     const [original, setOriginal] = useState([]);
     const [showFilter, setShowFilter] = useState(false);
-    const [city, setCity] = useState([]);
     const navigate = useNavigate();
-    let cities = [];
     const token = localStorage.getItem("token");
 
     useEffect(function(){
@@ -32,8 +30,6 @@ function Contacts(){
           .then(function(response){
             setContacts(response.data.contacts);
             setOriginal(response.data.contacts);
-            response.data.contacts.map((contact)=>
-            getAddress(contact.location));
           })
           .catch(function(error){
             alert(error.response.data.message);
@@ -60,28 +56,6 @@ function Contacts(){
     }
 
 
-    function getAddress(location){
-      axios({
-          method: "get",
-          url: `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location[0]}&lon=${location[1]}&accept-language=en`,
-          headers: {
-            "Content-type": "application/json",
-            "Authorization" : token
-          }
-        })
-        .then(function(response){
-          console.log(response.data.country);
-          cities = [...cities, response.data.address.country];
-          console.log(cities);
-          setCity(cities);
-          return response.data.address.city;
-          
-        })
-        .catch(function(error){
-          console.log(error);
-        })
-  }
-
     return(
         <>  
             <div className="header">
@@ -103,7 +77,7 @@ function Contacts(){
                 <div className="email">{contact.email}</div>
                 <div className="phone">{contact.phone}</div>
                 <div className="relationship">{contact.relationship}</div>
-                <div className="location">{city[index]}</div>
+                <div className="location">{contact.country}</div>
                 <div className="icons-container">
                 <div className="delete" onClick={()=>{removeContact(contact._id)}}><FaTrash/></div>
                 <div className="settings" onClick={() => {navigate(`${contact._id}`);}}><BsGearFill/></div>
