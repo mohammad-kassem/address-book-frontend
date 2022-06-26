@@ -12,7 +12,7 @@ function ContactForm({type, id, add, update}){
     const [phone, setPhone] = useState("");
     const [relationship, setRelationship] = useState("");
     const [location, setLocation] = useState([33.89351126947809, 35.49526530619446]);
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState("Lebanon");
 
 
     const navigate = useNavigate();
@@ -34,13 +34,12 @@ function ContactForm({type, id, add, update}){
             })
             .then(async function(response){
                 setName(response.data.name);
-
                 setEmail(response.data.email);
                 setPhone(response.data.phone);
                 setRelationship(response.data.relationship);
                 setLocation(response.data.location);
-                const coun = await getAddress(response.data.location);
-                setCountry(coun.data.address.country);
+                const address = await getAddress(response.data.location);
+                setCountry(address.data.address.country);
 
             })
             .catch(function(error){
@@ -73,10 +72,10 @@ function ContactForm({type, id, add, update}){
             setCountry(address.data.address.country);
             },
         })
-        
+    
 
         return (
-            <>  
+            <>
                 <Marker position={[markers[0].lat, markers[0].lng]}>
                 <Popup>You are here</Popup>
                 </Marker>

@@ -24,7 +24,7 @@ function FilterBar({ contacts, setContacts, city, setCity }){
         let k = 0;
         setContacts(contacts.filter((contact)=>{
             for (var key in filters) {
-                if (!contact[key].startsWith(filters[key][0]) || !contact[key].includes(filters[key][1]) || !contact[key].endsWith(filters[key][2]))
+                if (!contact[key].toUpperCase().startsWith(filters[key][0].toUpperCase()) || !contact[key].toUpperCase().includes(filters[key][1].toUpperCase()) || !contact[key].toUpperCase().endsWith(filters[key][2].toUpperCase()))
                   return false;
               }
               return true;
@@ -39,7 +39,7 @@ function FilterBar({ contacts, setContacts, city, setCity }){
             <div key={i} className={`filter-container ${classes[i]}`}>
             <label>Starts with</label>
             <input type="text" value={filter[0]} onChange={(e)=>{handleChange(e, i, 0)}}></input>
-            <label>includes</label>
+            <label>Includes</label>
             <input type="text" value={filter[1]} onChange={(e)=>{handleChange(e, i, 1)}}></input>
             <label>Ends with</label>
             <input type="text" value={filter[2]} onChange={(e)=>{handleChange(e, i, 2)}}></input>
